@@ -49,13 +49,17 @@ class BaseServiceProvider extends ServiceProvider
      */
     public function setupRoutes(Router $router)
     {
-        Route::group(
-        [
+        $groupParameters = [
             'namespace'  => 'Backpack\Base\app\Http\Controllers',
             'middleware' => 'web',
-            'prefix'     => config('backpack.base.route_prefix'),
-        ],
-        function () {
+        ];
+        if (config('backpack.base.route_prefix')) {
+            $groupParameters['prefix'] = config('backpack.base.route_prefix');
+        }
+        if (config('backpack.base.admin_domain')) {
+            $groupParameters['domain'] = config('backpack.base.admin_domain');
+        }
+        Route::group($groupParameters, function () {
             // if not otherwise configured, setup the auth routes
             if (config('backpack.base.setup_auth_routes')) {
                 Route::auth();
