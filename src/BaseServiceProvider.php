@@ -67,7 +67,16 @@ class BaseServiceProvider extends ServiceProvider
         $router->middleware('admin', app\Http\Middleware\Admin::class);
 
         $router->group(['namespace' => 'Backpack\Base\app\Http\Controllers'], function ($router) {
-            Route::group(['middleware' => 'web', 'prefix' => config('backpack.base.route_prefix')], function () {
+
+            $groupParameters = ['middleware' => 'web'];
+            if (config('backpack.base.route_prefix')) {
+                $groupParameters['prefix'] = config('backpack.base.route_prefix');
+            }
+            if (config('backpack.base.admin_domain')) {
+                $groupParameters['domain'] = config('backpack.base.admin_domain');
+            }
+
+            Route::group($groupParameters, function () {
 
                 // if not otherwise configured, setup the auth routes
                 if (config('backpack.base.setup_auth_routes')) {
