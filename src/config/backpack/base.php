@@ -57,8 +57,9 @@ return [
 
     // The prefix used in all base routes (the 'admin' in admin/dashboard)
     'route_prefix' => 'admin',
-    // A subdomain can also be used instead of a route prefix domain.tld/dashboard
+    // A separate or sub domain can also be used instead of a route prefix (domain.tld/dashboard)
     'admin_domain' => false,
+    'main_domain' => false,
 
     // Set this to false if you would like to use your own AuthController and PasswordController
     // (you then need to setup your auth routes manually in your routes.php file)
